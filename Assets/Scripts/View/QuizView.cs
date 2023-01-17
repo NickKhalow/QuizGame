@@ -1,7 +1,6 @@
 #nullable enable
 using Misc;
 using QuizGameCore;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using Uitls;
@@ -31,7 +30,15 @@ namespace View
                 () =>
                 {
                     var button = Instantiate(prefab, buttonsHolder).EnsureNotNull();
-                    button.clicked.AddListener(value => currentQuiz.Answer(value));
+                    var colored = button.GetComponent<ColorButton>();
+                    button.clicked.AddListener(value =>
+                    {
+                        var correct = currentQuiz.Answer(value);
+                        if (colored != null)
+                        {
+                            colored.Notify(correct);
+                        }
+                    });
                     return button;
                 },
                 postPush: obj => obj.gameObject.SetActive(false),
