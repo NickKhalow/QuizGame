@@ -14,6 +14,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Timer timer = null!;
     [SerializeField] private Attempts attempts = null!;
     [SerializeField] private float rewardTime = 2;
+    [SerializeField] private float suspendNextQuestionSeconds = 1;
 
 
     private IEnumerator Start()
@@ -36,8 +37,9 @@ public class EntryPoint : MonoBehaviour
                 ).Cache(out var quiz)
             );
             yield return quiz.WaitCorrect();
+            yield return new WaitForSeconds(suspendNextQuestionSeconds);
         }
-        
+
         quizView.gameObject.SetActive(false);
         timer.enabled = false;
     }
