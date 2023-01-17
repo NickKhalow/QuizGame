@@ -1,6 +1,7 @@
 #nullable enable
 using QuizGameCore.Utils;
 using Quizs;
+using Quizs.Fails;
 using System.Collections;
 using Uitls;
 using UnityEngine;
@@ -22,6 +23,13 @@ public class EntryPoint : MonoBehaviour
         timer.EnsureNotNull();
         attempts.EnsureNotNull();
 
+        var waitFail = WaitFail(
+            new IFail.Any(
+                new AttemptsFail(attempts),
+                new TimerFail(timer)
+            ).Cache(out var fail)
+        );
+
         foreach (var info in quizs)
         {
             quizView.EnsureNotNull().Render(
@@ -36,11 +44,58 @@ public class EntryPoint : MonoBehaviour
                     )
                 ).Cache(out var quiz)
             );
-            yield return quiz.WaitCorrect();
+            yield return WaitAny(
+                quiz.WaitCorrect(),
+                waitFail
+            );
+
+            if (fail.Failed)
+            {
+                print("Game failed");
+                break;
+            }
+
             yield return new WaitForSeconds(suspendNextQuestionSeconds);
         }
 
         quizView.gameObject.SetActive(false);
         timer.enabled = false;
+    }
+
+
+    private IEnumerator WaitAny(params IEnumerator[] items)
+    {
+        bool doneAny = false;
+
+        IEnumerator WaitDone(IEnumerator enumerator)
+        {
+            yield return enumerator;
+            doneAny = true;
+        }
+
+        foreach (var item in items)
+        {
+            StartCoroutine(WaitDone(item));
+        }
+
+        while (doneAny == false)
+        {
+            yield return null;
+        }
+    }
+
+
+    private IEnumerator WaitFail(IFail fail)
+    {
+        while (fail.Failed == false)
+        {
+            yield return null;
+        }
+    }
+
+
+    private class ValueBox<T>
+    {
+        public T? value;
     }
 }

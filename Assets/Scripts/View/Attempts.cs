@@ -14,6 +14,9 @@ namespace View
         private TMP_Text text = null!;
 
 
+        public int Count => count;
+
+
         private void Awake()
         {
             text = GetComponent<TMP_Text>().EnsureNotNull();

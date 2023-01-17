@@ -17,6 +17,9 @@ namespace View
         [SerializeField] private float maxTime = 20;
 
 
+        public float TimeLasts => slider.value;
+
+
         private void Awake()
         {
             sliderBar.EnsureNotNull();
