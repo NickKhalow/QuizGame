@@ -9,6 +9,10 @@ namespace View
     [RequireComponent(typeof(Image))]
     public class ColorButton : MonoBehaviour, IButtonEffect
     {
+        [SerializeField] private bool useShake = true;
+        [SerializeField] private float shakePower = 0.2f;
+        [SerializeField] private float shakeDuration = 0.3f;
+        [Space] [SerializeField] private bool useColor = true;
         [SerializeField] private Color correctColor;
         [SerializeField] private Color incorrectColor;
         [Space] [SerializeField] private float colorDuration = 0.5f;
@@ -25,21 +29,35 @@ namespace View
 
         public void Notify(bool correct)
         {
-            DOTween.Sequence()!
-                .Append(
-                    image.DOColor(
-                        correct
-                            ? correctColor
-                            : incorrectColor,
-                        colorDuration
+            if (useColor)
+            {
+                DOTween.Sequence()!
+                    .Append(
+                        image.DOColor(
+                            correct
+                                ? correctColor
+                                : incorrectColor,
+                            colorDuration
+                        )!
                     )!
-                )!
-                .Append(
-                    image.DOColor(
-                        defaultColor,
-                        colorDuration
-                    )!
-                );
+                    .Append(
+                        image.DOColor(
+                            defaultColor,
+                            colorDuration
+                        )!
+                    );
+            }
+
+            if (useShake)
+            {
+                if (correct)
+                {
+                    return;
+                }
+
+                transform.DOKill();
+                transform.DOPunchScale(Vector3.one * shakeDuration, shakeDuration);
+            }
         }
     }
 }
