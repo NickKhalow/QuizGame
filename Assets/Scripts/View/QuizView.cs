@@ -30,13 +30,13 @@ namespace View
                 () =>
                 {
                     var button = Instantiate(prefab, buttonsHolder).EnsureNotNull();
-                    var colored = button.GetComponent<ColorButton>();
+                    var effects = button.GetComponents<IButtonEffect>()!;
                     button.clicked.AddListener(value =>
                     {
                         var correct = currentQuiz.Answer(value);
-                        if (colored != null)
+                        foreach (var effect in effects)
                         {
-                            colored.Notify(correct);
+                            effect.Notify(correct);
                         }
                     });
                     return button;

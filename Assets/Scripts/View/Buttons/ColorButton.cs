@@ -7,7 +7,7 @@ using UnityEngine.UI;
 namespace View
 {
     [RequireComponent(typeof(Image))]
-    public class ColorButton : MonoBehaviour
+    public class ColorButton : MonoBehaviour, IButtonEffect
     {
         [SerializeField] private Color correctColor;
         [SerializeField] private Color incorrectColor;

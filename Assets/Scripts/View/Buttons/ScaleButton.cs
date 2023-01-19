@@ -11,6 +11,7 @@ namespace View
     [RequireComponent(typeof(Button))]
     public class ScaleButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
+        [SerializeField] private bool use = true;
         [SerializeField] private float holdScale = 0.8f;
         [SerializeField] private float releaseScale = 1.1f;
         [SerializeField] private float duration = 0.3f;
@@ -26,6 +27,11 @@ namespace View
 
         public void OnPointerDown(PointerEventData _)
         {
+            if (use == false)
+            {
+                return;
+            }
+
             currentTween?.Kill();
             currentTween = transform.DOScale(holdScale, duration);
         }
@@ -33,6 +39,11 @@ namespace View
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (use == false)
+            {
+                return;
+            }
+            
             currentTween?.Kill();
             currentTween = DOTween.Sequence()
                 !.Append(
