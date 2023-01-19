@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 524831846116613911}
   - component: {fileID: 3366991219972330205}
   - component: {fileID: 5854109918699794105}
-  - component: {fileID: 6583223093008135789}
+  - component: {fileID: 2571354701314517067}
   m_Layer: 5
   m_Name: Answer Button
   m_TagString: Untagged
@@ -172,7 +172,7 @@ MonoBehaviour:
   releaseScale: 1.1
   duration: 0.3
   defaultScale: {x: 1, y: 1, z: 1}
---- !u!114 &6583223093008135789
+--- !u!114 &2571354701314517067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,11 +181,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 524831846116613906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785d7580c8534883bd2ab18e1d5f7f3d, type: 3}
+  m_Script: {fileID: 11500000, guid: e3d85ec8d99c40d9bc3622a141f405fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 0.2
-  duration: 0.3
+  duration: 0.2
+  angle: 30
 --- !u!1 &524831847479255049
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using QuizGameCore.Utils;
 using Quizs;
 using Quizs.Fails;
+using Quizs.QuizSource;
 using System.Collections;
 using Uitls;
 using UnityEngine;
@@ -10,7 +11,6 @@ using View;
 
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] private QuizInfo[] quizs = null!;
     [SerializeField] private QuizView quizView = null!;
     [SerializeField] private Timer timer = null!;
     [SerializeField] private Attempts attempts = null!;
@@ -29,14 +29,14 @@ public class EntryPoint : MonoBehaviour
                 new TimerFail(timer)
             ).Cache(out var fail)
         );
-
-        foreach (var info in quizs)
+        
+        foreach (var info in GetComponent<IQuizSource>().EnsureNotNull().QuizList())
         {
             quizView.EnsureNotNull().Render(
                 new AwaitCorrectAnswerQuiz(
                     new AttemptsQuiz(
                         new TimedQuiz(
-                            info.Quiz(),
+                            info,
                             timer,
                             rewardTime
                         ),
