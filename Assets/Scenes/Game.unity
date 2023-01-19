@@ -1044,12 +1044,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1439035545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 616ffcc8c2ed4759940077c53c53ba51, type: 3}
+  m_Script: {fileID: 11500000, guid: 703625bc395e450cb8232150f3f2457c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quizList:
-  - {fileID: 11400000, guid: dfdf49b92c3be4d27968989b26bb1818, type: 2}
-  - {fileID: 11400000, guid: 517226fe232524c9ab68b374d05a7fbd, type: 2}
+  textAsset: {fileID: 4900000, guid: 9cadc6c47ac1a455ca5d2f358d2413e8, type: 3}
 --- !u!1 &1812709649
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,22 @@
+[
+	{
+		"Question" : "Some text",
+ 		"CorrectAnswer" : "Correct answer",
+		"WrongAnswers" : ["Hi", "Other", "Something"]
+	},
+	{
+		"Question" : "Some text",
+ 		"CorrectAnswer" : "Correct answer",
+		"WrongAnswers" : ["Hi", "Other", "Something"]
+	},
+	{
+		"Question" : "Some text",
+ 		"CorrectAnswer" : "Correct answer",
+		"WrongAnswers" : ["Hi", "Other", "Something"]
+	},
+	{
+		"Question" : "Some text",
+ 		"CorrectAnswer" : "Correct answer",
+		"WrongAnswers" : ["Hi", "Other", "Something"]
+	},
+]
