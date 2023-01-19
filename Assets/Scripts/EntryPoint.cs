@@ -29,18 +29,20 @@ public class EntryPoint : MonoBehaviour
                 new TimerFail(timer)
             ).Cache(out var fail)
         );
-        
+
         foreach (var info in GetComponent<IQuizSource>().EnsureNotNull().QuizList())
         {
             quizView.EnsureNotNull().Render(
                 new AwaitCorrectAnswerQuiz(
-                    new AttemptsQuiz(
-                        new TimedQuiz(
-                            info,
-                            timer,
-                            rewardTime
-                        ),
-                        attempts
+                    new ShuffledQuiz(
+                        new AttemptsQuiz(
+                            new TimedQuiz(
+                                info,
+                                timer,
+                                rewardTime
+                            ),
+                            attempts
+                        )
                     )
                 ).Cache(out var quiz)
             );
