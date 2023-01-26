@@ -1,8 +1,11 @@
 #nullable enable
+using LeaderBoards;
+using LeaderBoards.View;
 using QuizGameCore.Utils;
 using Quizs;
 using Quizs.Fails;
 using Quizs.QuizSource;
+using System;
 using System.Collections;
 using Uitls;
 using UnityEngine;
@@ -14,14 +17,24 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private QuizView quizView = null!;
     [SerializeField] private Timer timer = null!;
     [SerializeField] private Attempts attempts = null!;
+    [SerializeField] private SubmitLeaderView submitLeaderView = null!;
+    [SerializeField] private LeaderBoardView leaderBoardView = null!;
     [SerializeField] private float rewardTime = 2;
     [SerializeField] private float suspendNextQuestionSeconds = 1;
 
 
-    private IEnumerator Start()
+    private void Awake()
     {
         timer.EnsureNotNull();
         attempts.EnsureNotNull();
+        submitLeaderView.EnsureNotNull();
+        leaderBoardView.EnsureNotNull();
+    }
+
+
+    private IEnumerator Start()
+    {
+        submitLeaderView.StartAndHide();
 
         var waitFail = WaitFail(
             new IFail.Any(
@@ -62,6 +75,20 @@ public class EntryPoint : MonoBehaviour
 
         quizView.gameObject.SetActive(false);
         timer.enabled = false;
+        //submitLeaderView.ShowWithRecord();
+        //yield return WaitSubmit();
+        leaderBoardView.Show();
+    }
+
+
+    private IEnumerator WaitSubmit()
+    {
+        var done = false;
+        submitLeaderView.submitted.AddListener(() => done = true);
+        while (done == false)
+        {
+            yield return null;
+        }
     }
 
 
